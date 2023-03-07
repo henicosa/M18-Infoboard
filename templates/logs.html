@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class=" ajycwxehh idc0_345" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Log events</title>
+  <style>
+    /* Search input styles */
+    #search-input {
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    #search-input:focus {
+        border: 2px solid #555;
+    }
+table {
+      width: 100%;
+    }
+    tr {
+      margin-bottom: 16px;
+    }
+    th {
+        background-color: #f2f2f2;
+        padding: 8px;
+    }
+    td {
+        padding: 8px;
+    }
+    .info {
+        background-color: #d9edf7;
+    }
+    .warning {
+        background-color: #fcf8e3;
+    }
+    .error {
+        background-color: #f2dede;
+    }
+    .debug {
+        background-color: #dff0d8;
+    }
+    td, th {
+        width: 10%;
+    }
+    td:last-child {
+        width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <input type="text" id="search-input" placeholder="Search for keywords...">
+  </div>
+  <table id="log-table">
+    <tbody>
+    <tr>
+      <th>Time</th>
+      <th>Application</th>
+      <th>Type</th>
+      <th>Message</th>
+    </tr>
+
+    {% for log in log_messages %}
+    <tr class="{{ log.type.lower() }}">
+      <td>{{ log.time }}</td>
+      <td>{{ log.application }}</td>
+      <td>{{ log.type }}</td>
+      <td>{{ log.message }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+  <script>
+    var searchInput = document.getElementById("search-input");
+    var logTable = document.getElementById("log-table");
+
+    searchInput.addEventListener("keyup", function() {
+      var searchTerm = searchInput.value.toLowerCase();
+      var rows = logTable.getElementsByTagName("tr");
+
+      for (var i = 1; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        var match = false;
+
+        for (var j = 0; j < cells.length; j++) {
+          if (cells[j].textContent.toLowerCase().indexOf(searchTerm) > -1) {
+            match = true;
+            break;
+          }
+        }
+
+        if (match) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
+      }
+    });
+  </script>
+
+</body></html>

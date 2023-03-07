@@ -1,0 +1,446 @@
+<html class=" fmhypny idc0_346" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <meta charset="UTF-8">
+
+  <title>Digitales Infoboard</title>
+
+  <style>
+
+	  
+
+	:root {
+
+		--background-color: #ffd2f5;
+
+		--cross-color: LightGoldenRodYellow;
+
+		--article-background: rgb(210, 250, 240);
+
+		--button-color: #347968;
+
+	}
+
+
+
+	.content-right {
+
+		max-width: 100%;
+
+		width: auto;
+
+		filter: brightness(125%);
+
+		left: 0px;
+
+		float: none;
+
+		min-height: 53px;	
+
+		position: relative;
+
+		border: 2px solid var(--button-color);
+
+		border-radius: 10px;
+
+		background-color: var(--cross-color);;
+
+		box-shadow: 0 1px 3px rgba(0,0,0,.03);
+
+		padding: 25px 25px;
+
+		margin-top: 110px;
+
+		padding-top: 55px;
+
+	}
+
+
+
+	.button {
+
+		box-shadow: 10px 10px 0px rgba(200,100,0,.3);
+
+		background-color: var(--button-color);
+
+		color: var(--cross-color);
+
+		margin-bottom: 15px;
+
+		padding: 7px;
+
+	}
+
+
+
+	.button:hover {
+
+		box-shadow: 6px 6px 0px rgba(200,100,0,.3);
+
+		transform: translate(4px, 4px);
+
+		filter: brightness(125%);
+
+	}
+
+
+
+	img, video {
+
+		border-radius: 10px;
+
+	}
+
+
+
+	hr {
+
+		color: var(--button-color);
+
+	}
+
+
+
+	body {
+
+		/* Background pattern by Lea Verou*/
+
+		background: radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 20%, transparent), radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 80%, transparent) 10px 10px, linear-gradient(var(--cross-color) 8px, transparent 8px) 0 -4px, linear-gradient(90deg, var(--cross-color)2px, transparent 2px) -1px 0;
+
+		background-color: var(--background-color);
+
+		background-size: 50px 50px, 30px 30px, 25px 15px, 15px 15px;
+
+		margin: 0;
+
+		padding: 0;
+
+		font-family: Verdana, sans-serif;
+
+		background-image: url("pattern-0.svg");
+
+		background-size: 40vw;
+
+		color: var(--button-color);
+
+	}
+
+
+
+	.debug {
+
+		border: 2px dashed #ddd;
+
+		border-radius: 10px;
+
+	}
+
+
+
+	.box {
+
+		width: 90%;
+
+	}
+
+
+
+	.article-text {
+
+		height: 80%;
+
+		margin-bottom: 5px;
+
+		padding-bottom: 5px;
+
+		font-size: 1.5em;
+
+		overflow:hidden;
+
+		text-overflow: ellipsis;
+
+		content: "";
+
+		position:relative;
+
+		font-family: 'Vollkorn';
+
+	}
+
+
+
+	.article-text:before {
+
+		content:'';
+
+		width:100%;
+
+		height:100%;    
+
+		position:absolute;
+
+		left:0;
+
+		top:0;
+
+		background:linear-gradient(transparent 150px, var(--article-background));
+
+	}
+
+
+
+	.screen {
+
+		display:flex;  
+
+		flex-direction: row;
+
+		margin-top: 50px;
+
+		max-height: 80vh;
+
+		overflow: hidden;
+
+	}
+
+
+
+	.flex-item-right, .flex-item-left {
+
+		flex: 100%;
+
+		padding: 20px;
+
+	}
+
+
+
+	@media only screen and (max-width: 800px) {
+
+		.screen {
+
+			flex-direction: column;
+
+		}
+
+	}
+
+
+
+
+
+
+
+	/*===== // Vertical Timeline =====*/
+
+
+
+	/*===== // Resonsive Vertical Timeline =====*/
+
+  </style>
+
+  
+
+  <!-- Fonts -->
+
+  <link href="4_data/css.css" rel="stylesheet" type="text/css">
+
+  <link href="4_data/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+  <link href="4_data/css_003.css" rel="stylesheet">
+
+
+
+  <script src="4_data/qrcode.min.js"></script>
+
+
+
+  <!-- // Fonts -->
+
+</head>
+
+<body>
+
+  <!-- Vertical Timeline -->
+
+  <div class="box" style="margin: auto">
+
+
+
+	<div style="position: absolute;
+
+		top: 0;
+
+		left: 50vw;
+
+		width: 22.5vw;
+
+		height: 100vh;
+
+		background-color: var(--article-background);
+
+		z-index: -100;">
+
+
+
+	</div>
+
+
+
+	<div class="screen">
+
+		
+
+		<div class="flex-item-right">
+
+		
+
+		<img id="article-image" src="0_data/0.jpg" style="
+
+				width: 40vw;
+
+				height: auto;
+
+				max-height: 60vw;
+
+				object-fit: cover;
+
+				color: #fff;">
+
+		</div>
+
+
+
+	
+
+
+
+		<div class="flex-item-right" style="background: var(--article-background);">
+
+			<div style="font-family: 'Rubik Moonrocks'; font-size: 2em; margin-bottom: 16px;"><strong>SUMMAERY PARTY
+</strong></div> 
+
+			<div class="article-text">
+
+			
+<br>Wir holen die Summaery wieder vor die Tür!
+<br>
+<br>Nach der langen Corona Pause beleben wir den Campus wieder und laden
+ alle herzlich zum Eröffnungsfest ein. Wir wollen in die 
+Ausstellungswoche der Bauhaus-Universität einklingen und Brücken 
+zwischen studentischem und städtischem Leben bauen. Organisiert wird die
+ Summaery von Studierenden, für alle!
+<br>
+<br>Am 14.07. Um 18 Uhr gehts auf dem Campus los! Danach gehen wir alle gemeinsam ins Mascha zur Aftershow Party! 
+<br>
+<br>Auch im Line-Up ist für jeden was dabei, also bleibt gespannt und 
+vielleicht sehen wir euch draußen vor der Tür wieder - Who knows?
+<br>
+<br>(eng)
+<br>
+<br>We‘re taking the Summaery outside!
+<br>
+<br>After a long covid break we will revive the Campus and invite you to
+ the Summaery Opening Party. We want to introduce the annual exhibition 
+of the Bauhaus-Universität and build bridges between student life and 
+city life! The party is organised from students for all of you!
+<br>
+<br>On July 14th at 6 pm we are starting on Campus! Afterwards we are going to the Mascha for the Aftershow Party!
+<br>
+<br>The Line-Up holds something for everyone, be excited and may be we will see you again outside - wer weiß?
+<br>
+<br>Grafik: @lauriglock
+
+
+			</div>
+
+			<div class="more-info" style="position: absolute;
+
+			bottom: 10vh; right: 32vw;">
+
+				<img href="https://www.downloadclipart.net/large/curved-arrow-png-file.png">
+
+				<div id="qrcode" title="https://www.instagram.com/p/CfyRABejyy6/"><canvas style="display: none;" width="150" height="150"></canvas><img style="display: block;" src="data:image/png;base64,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"></div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	</div>
+
+
+
+	<div style="position: fixed; left: 0; padding-top: 50px;
+
+	bottom: 0;
+
+	width: 100%;">
+
+		<div style="width: 80%; margin: 0 auto;"><hr></div>
+
+		<div style="width: 60%; margin: 0 auto; padding-bottom: 2em; text-align: center; font-size: 0.6em;">
+
+			Referat Digitales - digitales@m18.uni-weimar.de
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+	window.addEventListener("load", () => {
+
+	  var r = document.querySelector(':root');
+
+	  var rs = getComputedStyle(r);
+
+	  var qrc = new QRCode(document.getElementById("qrcode"), {
+
+		text: "https://www.instagram.com/p/CfyRABejyy6/",
+
+		colorLight: rs.getPropertyValue('--article-background'),
+
+		width: 150,
+
+		height: 150,
+
+		});
+
+	});
+
+
+
+	const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+
+		const hex = x.toString(16)
+
+		return hex.length === 1 ? '0' + hex : hex
+
+	}).join('')
+
+
+
+
+
+</script>
+</body></html>

@@ -1,0 +1,427 @@
+<html class=" aigmjd idc0_346" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <meta charset="UTF-8">
+
+  <title>Digitales Infoboard</title>
+
+  <style>
+
+	  
+
+	:root {
+
+		--background-color: #ffd2f5;
+
+		--cross-color: LightGoldenRodYellow;
+
+		--article-background: rgb(210, 250, 240);
+
+		--button-color: #347968;
+
+	}
+
+
+
+	.content-right {
+
+		max-width: 100%;
+
+		width: auto;
+
+		filter: brightness(125%);
+
+		left: 0px;
+
+		float: none;
+
+		min-height: 53px;	
+
+		position: relative;
+
+		border: 2px solid var(--button-color);
+
+		border-radius: 10px;
+
+		background-color: var(--cross-color);;
+
+		box-shadow: 0 1px 3px rgba(0,0,0,.03);
+
+		padding: 25px 25px;
+
+		margin-top: 110px;
+
+		padding-top: 55px;
+
+	}
+
+
+
+	.button {
+
+		box-shadow: 10px 10px 0px rgba(200,100,0,.3);
+
+		background-color: var(--button-color);
+
+		color: var(--cross-color);
+
+		margin-bottom: 15px;
+
+		padding: 7px;
+
+	}
+
+
+
+	.button:hover {
+
+		box-shadow: 6px 6px 0px rgba(200,100,0,.3);
+
+		transform: translate(4px, 4px);
+
+		filter: brightness(125%);
+
+	}
+
+
+
+	img, video {
+
+		border-radius: 10px;
+
+	}
+
+
+
+	hr {
+
+		color: var(--button-color);
+
+	}
+
+
+
+	body {
+
+		/* Background pattern by Lea Verou*/
+
+		background: radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 20%, transparent), radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 80%, transparent) 10px 10px, linear-gradient(var(--cross-color) 8px, transparent 8px) 0 -4px, linear-gradient(90deg, var(--cross-color)2px, transparent 2px) -1px 0;
+
+		background-color: var(--background-color);
+
+		background-size: 50px 50px, 30px 30px, 25px 15px, 15px 15px;
+
+		margin: 0;
+
+		padding: 0;
+
+		font-family: Verdana, sans-serif;
+
+		background-image: url("pattern-1.svg");
+
+		background-size: 40vw;
+
+		color: var(--button-color);
+
+	}
+
+
+
+	.debug {
+
+		border: 2px dashed #ddd;
+
+		border-radius: 10px;
+
+	}
+
+
+
+	.box {
+
+		width: 90%;
+
+	}
+
+
+
+	.article-text {
+
+		height: 80%;
+
+		margin-bottom: 5px;
+
+		padding-bottom: 5px;
+
+		font-size: 1.5em;
+
+		overflow:hidden;
+
+		text-overflow: ellipsis;
+
+		content: "";
+
+		position:relative;
+
+		font-family: 'Vollkorn';
+
+	}
+
+
+
+	.article-text:before {
+
+		content:'';
+
+		width:100%;
+
+		height:100%;    
+
+		position:absolute;
+
+		left:0;
+
+		top:0;
+
+		background:linear-gradient(transparent 150px, var(--article-background));
+
+	}
+
+
+
+	.screen {
+
+		display:flex;  
+
+		flex-direction: row;
+
+		margin-top: 50px;
+
+		max-height: 80vh;
+
+		overflow: hidden;
+
+	}
+
+
+
+	.flex-item-right, .flex-item-left {
+
+		flex: 100%;
+
+		padding: 20px;
+
+	}
+
+
+
+	@media only screen and (max-width: 800px) {
+
+		.screen {
+
+			flex-direction: column;
+
+		}
+
+	}
+
+
+
+
+
+
+
+	/*===== // Vertical Timeline =====*/
+
+
+
+	/*===== // Resonsive Vertical Timeline =====*/
+
+  </style>
+
+  
+
+  <!-- Fonts -->
+
+  <link href="4_data/css.css" rel="stylesheet" type="text/css">
+
+  <link href="4_data/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+  <link href="4_data/css_003.css" rel="stylesheet">
+
+
+
+  <script src="4_data/qrcode.min.js"></script>
+
+
+
+  <!-- // Fonts -->
+
+</head>
+
+<body>
+
+  <!-- Vertical Timeline -->
+
+  <div class="box" style="margin: auto">
+
+
+
+	<div style="position: absolute;
+
+		top: 0;
+
+		left: 50vw;
+
+		width: 22.5vw;
+
+		height: 100vh;
+
+		background-color: var(--article-background);
+
+		z-index: -100;">
+
+
+
+	</div>
+
+
+
+	<div class="screen">
+
+		
+
+		<div class="flex-item-right">
+
+		
+
+		<img id="article-image" src="3_data/3.jpg" style="
+
+				width: 40vw;
+
+				height: auto;
+
+				max-height: 60vw;
+
+				object-fit: cover;
+
+				color: #fff;">
+
+		</div>
+
+
+
+	
+
+
+
+		<div class="flex-item-right" style="background: var(--article-background);">
+
+			<div style="font-family: 'Rubik Moonrocks'; font-size: 2em; margin-bottom: 16px;"><strong>Good Practice Beispiele gesucht: Reichen Sie Ihre Lehr- und Lernformate ein!
+</strong></div> 
+
+			<div class="article-text">
+
+			
+<br>Sie lehren an der Bauhaus-Universität Weimar und möchten Ihre 
+innovativen Lehr- und Lernformate oder –materialien sichtbar machen? 
+Teilen Sie Ihre Beispiele guter Lehre!
+<br>
+<br>Wir möchten interessante Lehr- und Lernformate, Materialien, 
+Methoden und Konzepte an der Bauhaus-Universität Weimar sammeln und auf 
+der Universitätswebsite zugänglich machen. Damit soll ein Pool 
+gelungener Beispiele entstehen, aus dem Lehrende Inspiration für die 
+Konzeption eigener Lehrveranstaltungen schöpfen können.
+
+			</div>
+
+			<div class="more-info" style="position: absolute;
+
+			bottom: 10vh; right: 32vw;">
+
+				<img href="https://www.downloadclipart.net/large/curved-arrow-png-file.png">
+
+				<div id="qrcode" title="https://www.uni-weimar.de/de/universitaet/aktuell/pinnwaende/titel/good-practice-beispiele-gesucht-reichen-sie-ihre-lehr-und-lernformate-ein-1/"><canvas style="display: none;" width="150" height="150"></canvas><img style="display: block;" src="data:image/png;base64,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"></div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	</div>
+
+
+
+	<div style="position: fixed; left: 0; padding-top: 50px;
+
+	bottom: 0;
+
+	width: 100%;">
+
+		<div style="width: 80%; margin: 0 auto;"><hr></div>
+
+		<div style="width: 60%; margin: 0 auto; padding-bottom: 2em; text-align: center; font-size: 0.6em;">
+
+			Referat Digitales - digitales@m18.uni-weimar.de
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+	window.addEventListener("load", () => {
+
+	  var r = document.querySelector(':root');
+
+	  var rs = getComputedStyle(r);
+
+	  var qrc = new QRCode(document.getElementById("qrcode"), {
+
+		text: "https://www.uni-weimar.de/de/universitaet/aktuell/pinnwaende/titel/good-practice-beispiele-gesucht-reichen-sie-ihre-lehr-und-lernformate-ein-1/",
+
+		colorLight: rs.getPropertyValue('--article-background'),
+
+		width: 150,
+
+		height: 150,
+
+		});
+
+	});
+
+
+
+	const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+
+		const hex = x.toString(16)
+
+		return hex.length === 1 ? '0' + hex : hex
+
+	}).join('')
+
+
+
+
+
+</script>
+</body></html>

@@ -1,0 +1,335 @@
+<html lang="de">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="published-on" content="2022-12-25T04:02:35.622596-05:00" />
+    <title>henicosa's {{  application_name  }}</title>
+    <style>
+      :root {
+        --background-color: lightcoral;
+        --snowflake-size: 200px;
+        --snowflake-color: rgba(255, 255, 255, 0.3);
+        --button-color: #3d3963;
+        --card-color: #effffc;
+      }
+      .avatar {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 25px;
+        margin-top: -100px;
+        color: #fff;
+        border-radius: 100%;
+      }
+      h1 {
+        text-align: center;
+        font-family: "Gill Sans", "Gill
+        Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        font-size: 45px;
+        margin: 30px 0;
+      }
+      .button {
+        box-shadow: 10px 10px 0px rgba(200, 100, 0, 0.3);
+        background-color: var(--button-color);
+        color: var(--background-color);
+        margin-bottom: 15px;
+        padding: 7px;
+        bottom: 0px; 
+        position: absolute; 
+        left:50%; 
+        width: 200px; 
+        margin-left: -100px;
+        height: 80px; 
+        color: var(--background-color); 
+        border-radius: 2%; 
+        background: var(--button-color); 
+        border: 4px solid var(--button-color); 
+        box-shadow: 10px 10px 0px rgba(200,100,0,.3); 
+      }
+      .button:hover {
+        box-shadow: 6px 6px 0px rgba(200, 100, 0, 0.3);
+        transform: translate(4px, 4px);
+        filter: brightness(125%);
+      }
+      .button-text-big {
+        display: block; text-align:
+            center; font-weight: 900; font-size: 30px;
+            line-height: 40px;
+      }
+      .button-text-small {
+        display: block; text-align: center;
+            font-weight: 900; font-size: 18px; line-height: 10px;
+      }
+      hr {
+        color: var(--button-color);
+      }
+      body {
+        background-color: var(--background-color);
+        background-image: linear-gradient(
+            45deg,
+            transparent calc(var(--snowflake-size) / 3),
+            var(--snowflake-color) calc(var(--snowflake-size) / 3),
+            var(--snowflake-color) calc(var(--snowflake-size) / 1.5),
+            transparent calc(var(--snowflake-size) / 1.5)
+          ),
+          linear-gradient(
+            45deg,
+            transparent calc(var(--snowflake-size) / 3),
+            var(--snowflake-color) calc(var(--snowflake-size) / 3),
+            var(--snowflake-color) calc(var(--snowflake-size) / 1.5),
+            transparent calc(var(--snowflake-size) / 1.5)
+          );
+        background-size: var(--snowflake-size) var(--snowflake-size);
+        background-position: 0 0,
+          calc(var(--snowflake-size) / 2) calc(var(--snowflake-size) / 2);
+        margin: 0;
+        padding: 0;
+        font-family: Verdana, sans-serif;
+        color: var(--button-color);
+      }
+      .debug {
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+      }
+      .box {
+        width: 90%;
+      }
+      .content {
+        font-size: 17px;
+        width: auto;
+        max-width: 100%;
+        filter: brightness(125%);
+        position: relative;
+        border: 2px solid var(--button-color);
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        padding: 25px 25px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+      }
+      @media only screen and (min-width: 660px) {
+        .box {
+          width: 600px;
+        }
+      }
+
+      @media only screen and (min-width: 400px) {
+        h1 {
+          font-size: 2.8em;
+        }
+      }
+      #conference-timeline {
+        position: relative;
+        max-width: 920px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      #conference-timeline .timeline-start,
+      #conference-timeline .timeline-end {
+        display: table;
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        font-weight: 900;
+        text-transform: uppercase;
+        background: var(--button-color);
+        padding: 15px 23px;
+        color: #fff;
+        max-width: 5%;
+        width: 100%;
+        text-align: center;
+        margin: 3%;
+      }
+      .chapter-start-title {
+        display: table;
+        font-family: "Roboto", sans-serif;
+        font-size: 2em;
+        font-weight: 900;
+        text-transform: uppercase;
+        padding: 15px 23px;
+        color: var(--button-color);
+        max-width: 5%;
+        width: 100%;
+        text-align: center;
+        margin: 3%;
+      }
+      #conference-timeline .conference-center-line {
+        position: absolute;
+        margin-left: 3%;
+        left: 50px;
+        width: 3px;
+        height: 100%;
+        top: 0;
+        margin-left: -2px;
+        background: var(--button-color);
+        z-index: -1;
+      }
+      #conference-timeline .conference-timeline-content {
+        padding-top: 37px;
+      }
+      .timeline-article {
+        width: 100%;
+        height: auto;
+        position: relative;
+        overflow: hidden;
+        margin: 10px 0;
+      }
+      .top-article {
+        width: 100%;
+        height: auto;
+        position: relative;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+      .timeline-article .timeline-author {
+        display: block;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: #24242471;
+        text-align: right;
+      }
+      .content p {
+        margin: 1% 1%;
+        margin-top: 0.5em;
+        padding: 0;
+        font-weight: 400;
+        color: #242424;
+        font-family: Vollkorn;
+        font-size: 18px;
+        line-height: 24px;
+        position: relative;
+      }
+      .timeline-article p span.article-number {
+        position: absolute;
+        font-weight: 300;
+        font-size: 44px;
+        top: 10px;
+        left: -60px;
+        color: var(--button-color);
+      }
+      .content {
+        position: relative;
+        border: 2px solid var(--button-color);
+        border-radius: 10px;
+        padding: 25px 25px;
+        margin-top: 50px;
+        box-shadow: 1px 10px 30px rgba(0, 0, 0, 0.03);
+        background-color: var(--card-color);
+      }
+      .timeline-article .content-left-container {
+        float: left;
+      }
+      .timeline-article .content-container {
+        float: right;
+      }
+      .timeline-article .content-left:before,
+      .timeline-article .content:before {
+        position: absolute;
+        top: 20px;
+        font-size: 23px;
+        font-family: "FontAwesome";
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Vertical Timeline -->
+    <div class="box" style="max-width: 600px; margin: auto; margin-top: 30px">
+      <h1>
+        <div style="font-size: 0.7em; font-family: cursive">M18's</div>
+        <div
+          style="font-size: 1.3em; line-height: 0.8em; font-family: monospace"
+        >
+          {{  application_name  }}
+        </div>
+        <div style="margin-top: 0.3em; font-size: 0.6em">- {{  application_type  }} -</div>
+      </h1>
+
+      <div class="timeline-article">
+        <div class="content-container" style=" width: 100%; margin-bottom: 50px; margin-top: 50px;">
+          <div class="content" style="padding-bottom: 70px;">
+            <img class="avatar" src="https://m18.uni-weimar.de/files/2017/11/cropped-M18-192x192.png"
+            alt="M18 logo"/>
+            {{  application_introduction  }}
+            <br><br>
+            Nachdem das Board gestartet wurde, kann unter <a href='board'>/board</a> das Dashboard aufgerufen werden. <br> Unter <a href='logs'>/logs</a> findest du die Logs des Infoboards. Hier kannst du mal nachschauen, wenn etwas nicht so läuft wie geplant.
+            
+          </div>
+        </div>
+        <button class="button">  
+          <div style=" margin-top: -10px;" id="activateButton" onClick="activateButton()">
+            <span class="button-text-big">{{  application_type_short  }}</span> 
+            <span class="button-text-small script-status">...</span></button>
+          </div>
+      </div>
+      <script>
+        function activateButton() {
+          var button = document.getElementsByClassName("button")[0];
+          var scriptStatus = document.getElementsByClassName("script-status")[0];
+          button.style.backgroundColor = "yellow";
+          scriptStatus.innerHTML = "startet";
+          button.disabled = true;
+          fetch("/activate", {
+            method: "POST"
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'already running'){
+              scriptStatus.innerHTML = "läuft bereits";
+            } else if (data.status === 'success') {
+              scriptStatus.innerHTML = "läuft ...";
+              button.style.backgroundColor = "AliceBlue";
+            } else if (data.status === 'failed')  {
+              scriptStatus.innerHTML = "fehlgeschlagen";
+              button.style.backgroundColor = "red";
+            } else if (data.status === 'not running')  {
+              scriptStatus.innerHTML = "aktivieren";
+            }
+          })
+        }
+      </script>
+      <script>
+        function checkStatus() {
+          var button = document.getElementsByClassName("button")[0];
+          var scriptStatus = document.getElementsByClassName("script-status")[0];
+          fetch("/status")
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'already running'){
+              scriptStatus.innerHTML = "läuft bereits";
+              button.style.backgroundColor = "yellow";
+            } else if (data.status === 'success') {
+              scriptStatus.innerHTML = "läuft ...";
+              button.style.backgroundColor = "AliceBlue";
+            } else if (data.status === 'failed')  {
+              scriptStatus.innerHTML = "fehlgeschlagen";
+              button.style.backgroundColor = "red";
+            } else if (data.status === 'not running')  {
+              scriptStatus.innerHTML = "aktivieren";
+            }
+          })
+        }
+        window.onload = checkStatus;
+      </script>
+      <div style="width: 40%; margin: 0 auto; margin-top: 50px">
+        <hr />
+      </div>
+      <div
+        style="
+          width: 60%;
+          margin: 0 auto;
+          padding-bottom: 2em;
+          text-align: center;
+          font-size: 0.6em;
+        "
+      >
+       All Rights free. No responsibility guaranteed.
+      </div>
+    </div>
+  </body>
+</html>

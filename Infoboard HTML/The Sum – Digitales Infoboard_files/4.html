@@ -1,0 +1,428 @@
+<html class=" qcgfacbmi idc0_346" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <meta charset="UTF-8">
+
+  <title>Digitales Infoboard</title>
+
+  <style>
+
+	  
+
+	:root {
+
+		--background-color: #ffd2f5;
+
+		--cross-color: LightGoldenRodYellow;
+
+		--article-background: rgb(210, 250, 240);
+
+		--button-color: #347968;
+
+	}
+
+
+
+	.content-right {
+
+		max-width: 100%;
+
+		width: auto;
+
+		filter: brightness(125%);
+
+		left: 0px;
+
+		float: none;
+
+		min-height: 53px;	
+
+		position: relative;
+
+		border: 2px solid var(--button-color);
+
+		border-radius: 10px;
+
+		background-color: var(--cross-color);;
+
+		box-shadow: 0 1px 3px rgba(0,0,0,.03);
+
+		padding: 25px 25px;
+
+		margin-top: 110px;
+
+		padding-top: 55px;
+
+	}
+
+
+
+	.button {
+
+		box-shadow: 10px 10px 0px rgba(200,100,0,.3);
+
+		background-color: var(--button-color);
+
+		color: var(--cross-color);
+
+		margin-bottom: 15px;
+
+		padding: 7px;
+
+	}
+
+
+
+	.button:hover {
+
+		box-shadow: 6px 6px 0px rgba(200,100,0,.3);
+
+		transform: translate(4px, 4px);
+
+		filter: brightness(125%);
+
+	}
+
+
+
+	img, video {
+
+		border-radius: 10px;
+
+	}
+
+
+
+	hr {
+
+		color: var(--button-color);
+
+	}
+
+
+
+	body {
+
+		/* Background pattern by Lea Verou*/
+
+		background: radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 20%, transparent), radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 80%, transparent) 10px 10px, linear-gradient(var(--cross-color) 8px, transparent 8px) 0 -4px, linear-gradient(90deg, var(--cross-color)2px, transparent 2px) -1px 0;
+
+		background-color: var(--background-color);
+
+		background-size: 50px 50px, 30px 30px, 25px 15px, 15px 15px;
+
+		margin: 0;
+
+		padding: 0;
+
+		font-family: Verdana, sans-serif;
+
+		background-image: url("pattern-0.svg");
+
+		background-size: 40vw;
+
+		color: var(--button-color);
+
+	}
+
+
+
+	.debug {
+
+		border: 2px dashed #ddd;
+
+		border-radius: 10px;
+
+	}
+
+
+
+	.box {
+
+		width: 90%;
+
+	}
+
+
+
+	.article-text {
+
+		height: 80%;
+
+		margin-bottom: 5px;
+
+		padding-bottom: 5px;
+
+		font-size: 1.5em;
+
+		overflow:hidden;
+
+		text-overflow: ellipsis;
+
+		content: "";
+
+		position:relative;
+
+		font-family: 'Vollkorn';
+
+	}
+
+
+
+	.article-text:before {
+
+		content:'';
+
+		width:100%;
+
+		height:100%;    
+
+		position:absolute;
+
+		left:0;
+
+		top:0;
+
+		background:linear-gradient(transparent 150px, var(--article-background));
+
+	}
+
+
+
+	.screen {
+
+		display:flex;  
+
+		flex-direction: row;
+
+		margin-top: 50px;
+
+		max-height: 80vh;
+
+		overflow: hidden;
+
+	}
+
+
+
+	.flex-item-right, .flex-item-left {
+
+		flex: 100%;
+
+		padding: 20px;
+
+	}
+
+
+
+	@media only screen and (max-width: 800px) {
+
+		.screen {
+
+			flex-direction: column;
+
+		}
+
+	}
+
+
+
+
+
+
+
+	/*===== // Vertical Timeline =====*/
+
+
+
+	/*===== // Resonsive Vertical Timeline =====*/
+
+  </style>
+
+  
+
+  <!-- Fonts -->
+
+  <link href="4_data/css.css" rel="stylesheet" type="text/css">
+
+  <link href="4_data/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+  <link href="4_data/css_003.css" rel="stylesheet">
+
+
+
+  <script src="4_data/qrcode.min.js"></script>
+
+
+
+  <!-- // Fonts -->
+
+</head>
+
+<body>
+
+  <!-- Vertical Timeline -->
+
+  <div class="box" style="margin: auto">
+
+
+
+	<div style="position: absolute;
+
+		top: 0;
+
+		left: 50vw;
+
+		width: 22.5vw;
+
+		height: 100vh;
+
+		background-color: var(--article-background);
+
+		z-index: -100;">
+
+
+
+	</div>
+
+
+
+	<div class="screen">
+
+		
+
+		<div class="flex-item-right">
+
+		
+
+		<img id="article-image" src="4_data/4.jpg" style="
+
+				width: 40vw;
+
+				height: auto;
+
+				max-height: 60vw;
+
+				object-fit: cover;
+
+				color: #fff;">
+
+		</div>
+
+
+
+	
+
+
+
+		<div class="flex-item-right" style="background: var(--article-background);">
+
+			<div style="font-family: 'Rubik Moonrocks'; font-size: 2em; margin-bottom: 16px;"><strong>Nimm Platz! 
+</strong></div> 
+
+			<div class="article-text">
+
+			Die Semesterkonferenz der Fakultät Architektur und Urbanistik für das
+ Sommersemester 2022 findet am 18.07.2022 um 14:00 im Oberlichtsaal des 
+Hauptgebäudes statt. Gib deinen Senf dazu! Melde dich an per mail an 
+fachschaft@archit.uni-weimar.de
+<br>
+<br>Take a seat!
+<br>The semester conference of the architecture and urbanism faculty for
+ the 2022 summer semester is taking place July 18th, 2022 at 2 PM in the
+ Oberlichtsaal at the main building. Add your two cents! Register via 
+email fachschaft@archit.uni-weimar.de
+
+
+			</div>
+
+			<div class="more-info" style="position: absolute;
+
+			bottom: 10vh; right: 32vw;">
+
+				<img href="https://www.downloadclipart.net/large/curved-arrow-png-file.png">
+
+				<div id="qrcode" title="https://www.instagram.com/p/Cf-M8hwj7PO/"><canvas style="display: none;" width="150" height="150"></canvas><img style="display: block;" src="data:image/png;base64,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"></div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	</div>
+
+
+
+	<div style="position: fixed; left: 0; padding-top: 50px;
+
+	bottom: 0;
+
+	width: 100%;">
+
+		<div style="width: 80%; margin: 0 auto;"><hr></div>
+
+		<div style="width: 60%; margin: 0 auto; padding-bottom: 2em; text-align: center; font-size: 0.6em;">
+
+			Referat Digitales - digitales@m18.uni-weimar.de
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+	window.addEventListener("load", () => {
+
+	  var r = document.querySelector(':root');
+
+	  var rs = getComputedStyle(r);
+
+	  var qrc = new QRCode(document.getElementById("qrcode"), {
+
+		text: "https://www.instagram.com/p/Cf-M8hwj7PO/",
+
+		colorLight: rs.getPropertyValue('--article-background'),
+
+		width: 150,
+
+		height: 150,
+
+		});
+
+	});
+
+
+
+	const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+
+		const hex = x.toString(16)
+
+		return hex.length === 1 ? '0' + hex : hex
+
+	}).join('')
+
+
+
+
+
+</script>
+</body></html>

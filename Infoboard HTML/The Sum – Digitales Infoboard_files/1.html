@@ -1,0 +1,426 @@
+<html class=" mintqfzhp idc0_346" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <meta charset="UTF-8">
+
+  <title>Digitales Infoboard</title>
+
+  <style>
+
+	  
+
+	:root {
+
+		--background-color: #ffd2f5;
+
+		--cross-color: LightGoldenRodYellow;
+
+		--article-background: rgb(210, 250, 240);
+
+		--button-color: #347968;
+
+	}
+
+
+
+	.content-right {
+
+		max-width: 100%;
+
+		width: auto;
+
+		filter: brightness(125%);
+
+		left: 0px;
+
+		float: none;
+
+		min-height: 53px;	
+
+		position: relative;
+
+		border: 2px solid var(--button-color);
+
+		border-radius: 10px;
+
+		background-color: var(--cross-color);;
+
+		box-shadow: 0 1px 3px rgba(0,0,0,.03);
+
+		padding: 25px 25px;
+
+		margin-top: 110px;
+
+		padding-top: 55px;
+
+	}
+
+
+
+	.button {
+
+		box-shadow: 10px 10px 0px rgba(200,100,0,.3);
+
+		background-color: var(--button-color);
+
+		color: var(--cross-color);
+
+		margin-bottom: 15px;
+
+		padding: 7px;
+
+	}
+
+
+
+	.button:hover {
+
+		box-shadow: 6px 6px 0px rgba(200,100,0,.3);
+
+		transform: translate(4px, 4px);
+
+		filter: brightness(125%);
+
+	}
+
+
+
+	img, video {
+
+		border-radius: 10px;
+
+	}
+
+
+
+	hr {
+
+		color: var(--button-color);
+
+	}
+
+
+
+	body {
+
+		/* Background pattern by Lea Verou*/
+
+		background: radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 20%, transparent), radial-gradient(circle, transparent 20%, var(--background-color) 20%, var(--background-color) 80%, transparent 80%, transparent) 10px 10px, linear-gradient(var(--cross-color) 8px, transparent 8px) 0 -4px, linear-gradient(90deg, var(--cross-color)2px, transparent 2px) -1px 0;
+
+		background-color: var(--background-color);
+
+		background-size: 50px 50px, 30px 30px, 25px 15px, 15px 15px;
+
+		margin: 0;
+
+		padding: 0;
+
+		font-family: Verdana, sans-serif;
+
+		background-image: url("pattern-0.svg");
+
+		background-size: 40vw;
+
+		color: var(--button-color);
+
+	}
+
+
+
+	.debug {
+
+		border: 2px dashed #ddd;
+
+		border-radius: 10px;
+
+	}
+
+
+
+	.box {
+
+		width: 90%;
+
+	}
+
+
+
+	.article-text {
+
+		height: 80%;
+
+		margin-bottom: 5px;
+
+		padding-bottom: 5px;
+
+		font-size: 1.5em;
+
+		overflow:hidden;
+
+		text-overflow: ellipsis;
+
+		content: "";
+
+		position:relative;
+
+		font-family: 'Vollkorn';
+
+	}
+
+
+
+	.article-text:before {
+
+		content:'';
+
+		width:100%;
+
+		height:100%;    
+
+		position:absolute;
+
+		left:0;
+
+		top:0;
+
+		background:linear-gradient(transparent 150px, var(--article-background));
+
+	}
+
+
+
+	.screen {
+
+		display:flex;  
+
+		flex-direction: row;
+
+		margin-top: 50px;
+
+		max-height: 80vh;
+
+		overflow: hidden;
+
+	}
+
+
+
+	.flex-item-right, .flex-item-left {
+
+		flex: 100%;
+
+		padding: 20px;
+
+	}
+
+
+
+	@media only screen and (max-width: 800px) {
+
+		.screen {
+
+			flex-direction: column;
+
+		}
+
+	}
+
+
+
+
+
+
+
+	/*===== // Vertical Timeline =====*/
+
+
+
+	/*===== // Resonsive Vertical Timeline =====*/
+
+  </style>
+
+  
+
+  <!-- Fonts -->
+
+  <link href="4_data/css.css" rel="stylesheet" type="text/css">
+
+  <link href="4_data/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+
+
+  <link href="4_data/css_002.css" rel="stylesheet">
+
+  <link href="4_data/css_003.css" rel="stylesheet">
+
+
+
+  <script src="4_data/qrcode.min.js"></script>
+
+
+
+  <!-- // Fonts -->
+
+</head>
+
+<body>
+
+  <!-- Vertical Timeline -->
+
+  <div class="box" style="margin: auto">
+
+
+
+	<div style="position: absolute;
+
+		top: 0;
+
+		left: 50vw;
+
+		width: 22.5vw;
+
+		height: 100vh;
+
+		background-color: var(--article-background);
+
+		z-index: -100;">
+
+
+
+	</div>
+
+
+
+	<div class="screen">
+
+		
+
+		<div class="flex-item-right">
+
+		
+
+		<img id="article-image" src="1_data/1.jpg" style="
+
+				width: 40vw;
+
+				height: auto;
+
+				max-height: 60vw;
+
+				object-fit: cover;
+
+				color: #fff;">
+
+		</div>
+
+
+
+	
+
+
+
+		<div class="flex-item-right" style="background: var(--article-background);">
+
+			<div style="font-family: 'Rubik Moonrocks'; font-size: 2em; margin-bottom: 16px;"><strong>Unsere Eindrücke der Klausurtagung 2022: 
+</strong></div> 
+
+			<div class="article-text">
+
+			Eine tolle Zeit mit neuen Bekanntschaften, leckerem Essen und vielen tollen Ideen. 
+<br>Der perfekte Start für ein erfolgreiches Jahr im Fachschaftsrat. 
+<br>Euer FsR B ☀️
+<br>
+<br>Our impressions of the 2022 student retreat: 
+<br>A great time with new acquaintances, delicious food and lots of great ideas. 
+<br>The perfect start for a successful year in the Student Council.
+<br>Your FsR B ☀️
+
+
+			</div>
+
+			<div class="more-info" style="position: absolute;
+
+			bottom: 10vh; right: 32vw;">
+
+				<img href="https://www.downloadclipart.net/large/curved-arrow-png-file.png">
+
+				<div id="qrcode" title="https://www.instagram.com/p/CfWicOgDVXF/"><canvas style="display: none;" width="150" height="150"></canvas><img style="display: block;" src="data:image/png;base64,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"></div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	</div>
+
+
+
+	<div style="position: fixed; left: 0; padding-top: 50px;
+
+	bottom: 0;
+
+	width: 100%;">
+
+		<div style="width: 80%; margin: 0 auto;"><hr></div>
+
+		<div style="width: 60%; margin: 0 auto; padding-bottom: 2em; text-align: center; font-size: 0.6em;">
+
+			Referat Digitales - digitales@m18.uni-weimar.de
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+	window.addEventListener("load", () => {
+
+	  var r = document.querySelector(':root');
+
+	  var rs = getComputedStyle(r);
+
+	  var qrc = new QRCode(document.getElementById("qrcode"), {
+
+		text: "https://www.instagram.com/p/CfWicOgDVXF/",
+
+		colorLight: rs.getPropertyValue('--article-background'),
+
+		width: 150,
+
+		height: 150,
+
+		});
+
+	});
+
+
+
+	const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+
+		const hex = x.toString(16)
+
+		return hex.length === 1 ? '0' + hex : hex
+
+	}).join('')
+
+
+
+
+
+</script>
+</body></html>

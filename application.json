@@ -1,0 +1,8 @@
+{
+    "application_name": "Digitales Infoboard",
+    "application_type": "Dashboard",
+    "application_type_short": "Board",
+    "application_introduction": "Dieses digitale Infoboard zeigt alle wichtigen Events von und rund um der M18, dem gemeinsamen Haus der Studierenden der Bauhaus-Universität Weimar und Hochschule für Musik Franz Liszt.",
+    "application_repo_link": "https://github.com/henicosa",
+    "application_version": "1.0"
+}
