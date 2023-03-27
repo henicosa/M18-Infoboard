@@ -8,13 +8,13 @@ import schedule
 import time
 
 import applog
-import crawler
+import feed
 
 
 print("Started scheduling")
-crawler.fetch_crawlers()
+feed.fetch_crawlers()
     
-schedule.every(2).hours.do(crawler.fetch_crawlers)
+schedule.every(2).hours.do(feed.fetch_crawlers)
 
 while True:
     try:

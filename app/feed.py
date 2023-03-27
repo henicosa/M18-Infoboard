@@ -1,12 +1,14 @@
 import json
+import crawler.pinnwand
 import crawler.dummy
 
 def fetch_crawlers():
     # Now add here all the crawlers
     entries = crawler.dummy.get_feed_entries()
+    entries += crawler.pinnwand.get_feed_entries()
     # TODO
     # entries.append(crawler.instagram.get_feed_entries())
-    # entries.append(crawler.pinnwand.get_feed_entries())
+
     # ...
     # sort entries according to their publication time
 
