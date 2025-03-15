@@ -185,7 +185,13 @@
           class="flex-item-right"
           style="background: var(--article-background)"
         >
-          <div
+
+
+        <div class="article-author">
+          {{ article['author'] }}
+        </div>
+
+          <div class="article-title"
             style="
               font-family: 'Rubik Moonrocks';
               font-size: 2em;
@@ -196,7 +202,7 @@
           </div>
 
           <div class="article-text">
-            {{ article['content'] }}
+            {{ article['content']|safe }}
           </div>
 
           <div

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M18 Infoboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #6d28d9;
+      --primary-light: #8b5cf6;
+      --accent-color: #f43f5e;
+      --light-bg: #f9fafb;
+      --dark-bg: #1f2937;
+      --text-color: #1f2937;
+      --text-light: #f9fafb;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    .decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .decoration::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+      animation: pulse 15s infinite ease-in-out;
+    }
+    
+    .decoration::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -30%;
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(244, 63, 94, 0.05) 0%, transparent 70%);
+      animation: float 20s infinite ease-in-out alternate;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes float {
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(30px) rotate(5deg); }
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+    }
+    
+    @media (min-width: 768px) {
+      .card {
+        flex-direction: row;
+        height: calc(100vh - 4rem);
+        max-height: 800px;
+      }
+    }
+    
+    .image-container {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      background-color: var(--primary-light);
+    }
+    
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease;
+    }
+    
+    .content {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    
+    .event-type {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    
+    .description {
+      margin-bottom: 2rem;
+      font-size: 1.125rem;
+    }
+    
+    .description p {
+      margin-bottom: 1rem;
+    }
+    
+    .description a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .description a:hover {
+      color: var(--primary-light);
+      text-decoration: underline;
+    }
+    
+    .meta {
+      display: flex;
+      align-items: center;
+      margin-top: auto;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    
+    .date-time {
+      display: flex;
+      align-items: center;
+    }
+    
+    .icon {
+      color: var(--primary-color);
+      font-size: 1.25rem;
+      margin-right: 0.5rem;
+    }
+    
+    .author {
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .qrcode-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 1rem;
+      border-left: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    
+    .qrcode-label {
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #6b7280;
+    }
+    
+    #qrcode {
+      background-color: white;
+      padding: 0.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="decoration"></div>
+  <div class="container">
+    <div class="card">
+      <div class="image-container">
+        <img id="event-image" src="{{ article['image'] }}" alt="Event image">
+      </div>
+      <div class="content">
+        <span class="author">{{ article['author'] }}</span>
+        <h1 class="title">»{{ article['title'] }}«</h1>
+        <div class="description">
+            {{ article['content']|safe }}
+        </div>
+        <!--div class="meta">
+          <div>
+            <div class="date-time">
+              <i class="icon fas fa-calendar-alt"></i>
+              <span>Friday, 21 March 2025</span>
+            </div>
+            <div class="date-time">
+              <i class="icon fas fa-clock"></i>
+              <span>7:30 PM</span>
+            </div>
+            <div class="date-time">
+              <i class="icon fas fa-map-marker-alt"></i>
+              <span>Audimax</span>
+            </div>
+            <div class="author">
+              <i class="icon fas fa-user"></i>
+              <span>Anagha Pandancherry</span>
+            </div>
+          </div-->
+          <div class="qrcode-container">
+            <div class="qrcode-label">Scan for more info</div>
+            <div id="qrcode"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      Referat Digitales - digitales@m18.uni-weimar.de
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    window.addEventListener("load", () => {
+      // Generate QR code
+      new QRCode(document.getElementById("qrcode"), {
+        text: "https://www.uni-weimar.de/universitaet/aktuell/pinnwaende/titel/film-screening-the-empty-grave-friday-21-march-2025-730-pm-audimax/",
+        width: 80,
+        height: 80,
+        colorDark: "#6d28d9",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    });
+  </script>
+</body>
+</html>

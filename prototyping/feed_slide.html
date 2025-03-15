@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digitales Infoboard</title>
+  <style>
+    :root {
+      --background-color: #f5f7fa;
+      --cross-color: #ffffff;
+      --article-background: #ffffff;
+      --button-color: #4f46e5;
+      --text-color: #374151;
+      --accent-color: #8b5cf6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Verdana, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-image: linear-gradient(
+        to bottom right,
+        rgba(79, 70, 229, 0.05) 0%,
+        rgba(139, 92, 246, 0.05) 100%
+      );
+      background-size: cover;
+      background-attachment: fixed;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Blurred background effect */
+    .background-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      filter: blur(15px);
+      opacity: 0.3;
+      transform: scale(1.1); /* Slightly enlarged to cover blur edges */
+      transition: opacity 1.5s ease, filter 1.5s ease;
+    }
+
+    .box {
+      width: 90%;
+      max-width: 1400px;
+      margin: 2rem auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .screen {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      background-color: var(--article-background);
+      backdrop-filter: blur(5px);
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    @media (min-width: 800px) {
+      .screen {
+        flex-direction: row;
+        height: calc(100vh - 100px);
+        max-height: 800px;
+      }
+    }
+
+    .flex-item-right,
+    .flex-item-left {
+      padding: 0;
+    }
+
+    .flex-item-left {
+      flex: 1;
+      background-color: var(--accent-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flex-item-right {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* Changed from overflow-y: auto to hidden */
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(5px);
+      transition: backdrop-filter 0.5s ease, background-color 0.5s ease;
+    }
+
+    #article-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 1s ease;
+    }
+
+    #article-image:hover {
+      transform: scale(1.05);
+    }
+
+    .article-author {
+      font-size: 0.9rem;
+      color: var(--button-color);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .article-title {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color: var(--button-color);
+    }
+
+    /* New header section that stays fixed */
+    .header-section {
+      position: sticky;
+      top: 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(5px);
+      z-index: 10;
+      padding-bottom: 1rem;
+      transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+    }
+
+    /* Content section that will scroll */
+    .content-section {
+      overflow-y: auto;
+      flex-grow: 1;
+      position: relative;
+      padding-right: 5px; /* Add some padding for scrollbar */
+    }
+
+    .article-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      position: relative;
+      height: auto;
+    }
+
+    .article-text p {
+      margin-bottom: 1rem;
+    }
+
+    .article-text a {
+      color: var(--button-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .article-text a:hover {
+      text-decoration: underline;
+    }
+
+    .article-text:before {
+      display: none;
+    }
+
+    .more-info {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      display: flex;
+      margin-top: auto;
+      justify-content: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    #qrcode {
+      padding: 0.5rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    #qrcode img {
+      display: block;
+    }
+
+    .event-details {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .event-detail {
+      margin-right: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .event-detail i {
+      margin-right: 0.5rem;
+      color: var(--button-color);
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
+      margin: 1rem 0;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: var(--button-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.25);
+      margin-top: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 10px rgba(79, 70, 229, 0.3);
+      filter: brightness(110%);
+    }
+
+    /* Styling for scrollbar */
+    .content-section::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .content-section::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+    }
+
+    .content-section::-webkit-scrollbar-thumb {
+      background: var(--button-color);
+      border-radius: 10px;
+    }
+
+    .content-section::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-color);
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Blurred background div -->
+  <div class="background-blur" id="backgroundBlur"></div>
+
+  <div class="box">
+    <div class="screen">
+      <div class="flex-item-left">
+        <img id="article-image" src="{{ article['image'] }}" alt="Film screening poster">
+      </div>
+      <div class="flex-item-right">
+        <!-- Header section that stays fixed -->
+        <div class="header-section">
+          <div class="article-author">
+            {{ article['author'] }}
+          </div>
+          <div class="article-title">
+            <strong>{{ article["title"] }}</strong>
+          </div>
+        </div>
+        
+        
+        <!-- Content section that will auto-scroll -->
+        <div class="content-section" id="scrollContent">
+          <div class="article-text">
+            {{ article['content']|safe }}
+          </div>
+          
+          <div class="more-info">
+            <div id="qrcode"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="width: 80%; margin: 1rem auto;">
+      <hr>
+    </div>
+    
+    <div style="width: 60%; margin: 0 auto; padding-bottom: 2em; text-align: center; font-size: 0.8em; color: #6b7280;">
+      Referat Digitales - digitales@m18.uni-weimar.de
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    window.addEventListener("load", () => {
+      // Generate QR code
+      new QRCode(document.getElementById("qrcode"), {
+        text: "{{ article['link'] }}",
+        width: 120,
+        height: 120,
+        colorDark: "#4f46e5",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      // Auto-scroll function
+      const scrollContent = document.getElementById('scrollContent');
+      let scrollPosition = 0;
+      const scrollSpeed = 0.5; // pixels per interval (lower = slower)
+      const scrollInterval = 30; // milliseconds between scroll movement
+      const pauseAtBottom = 3000; // milliseconds to pause at the bottom
+      const pauseAtTop = 1000; // milliseconds to pause at the top
+      let isPaused = false;
+      let scrollDirection = 1; // 1 for down, -1 for up
+
+      function autoScroll() {
+        if (isPaused) return;
+
+        // Update scroll position
+        scrollPosition += scrollSpeed * scrollDirection;
+        
+        // Apply scroll position
+        scrollContent.scrollTop = scrollPosition;
+        
+        // Check if we've reached the bottom
+        if (scrollPosition >= (scrollContent.scrollHeight - scrollContent.clientHeight) && scrollDirection === 1) {
+          isPaused = true;
+          setTimeout(() => {
+            scrollDirection = -1; // Change direction to scroll up
+            isPaused = false;
+          }, pauseAtBottom);
+        }
+        
+        // Check if we've reached the top
+        if (scrollPosition <= 0 && scrollDirection === -1) {
+          isPaused = true;
+          setTimeout(() => {
+            scrollDirection = 1; // Change direction to scroll down
+            isPaused = false;
+          }, pauseAtTop);
+        }
+      }
+      
+      // Start auto-scrolling
+      setInterval(autoScroll, scrollInterval);
+
+      // Create blurred background effect using the poster image
+      const articleImage = document.getElementById('article-image');
+      const backgroundBlur = document.getElementById('backgroundBlur');
+      
+      // Function to set the background image and animate it
+      function setBlurredBackground() {
+        // In this example we're using a placeholder, but in a real implementation 
+        // you would use the actual image source
+        const imageSrc = articleImage.src;
+        backgroundBlur.style.backgroundImage = `url(${imageSrc})`;
+        
+        // Create pulse animation for the blur effect
+        let blurAmount = 15;
+        let opacity = 0.3;
+        let increasing = false;
+        
+        setInterval(() => {
+          if (increasing) {
+            blurAmount += 0.1;
+            opacity += 0.005;
+            if (blurAmount >= 20) {
+              increasing = false;
+            }
+          } else {
+            blurAmount -= 0.1;
+            opacity -= 0.005;
+            if (blurAmount <= 15) {
+              increasing = true;
+            }
+          }
+          
+          backgroundBlur.style.filter = `blur(${blurAmount}px)`;
+          backgroundBlur.style.opacity = opacity.toString();
+        }, 100);
+      }
+      
+      // Initialize the blurred background
+      setBlurredBackground();
+    });
+  </script>
+</body>
+</html>

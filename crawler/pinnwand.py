@@ -15,6 +15,8 @@ def get_feed_entries():
         rss_feed.entries = rss_feed.entries[:10]
 
     for rss_entry in rss_feed.entries:
+        title = "".join(rss_entry["title"].split(": ")[1:])
+        author = rss_entry["title"].split(": ")[0]
         entry = {
             # This is the type of the feed, e.g pinnwannd, instagram etc.
             "type": "StuKo Pinnwand",
@@ -23,7 +25,8 @@ def get_feed_entries():
             # This is the publication date and time in unix time (was a bit lazy in this example)
             "pubUnix" : time.mktime(rss_entry["published_parsed"]),
             # This is the title of the feed element
-            "title": rss_entry["title"],
+            "title": title,
+            "author": author,
             # This is the link to the original resource
             "link": rss_entry["link"],
             # This is a short summary of the content

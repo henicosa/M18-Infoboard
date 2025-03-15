@@ -261,61 +261,8 @@
             
           </div>
         </div>
-        <button class="button">  
-          <div style=" margin-top: -10px;" id="activateButton" onClick="activateButton()">
-            <span class="button-text-big">{{  application_type_short  }}</span> 
-            <span class="button-text-small script-status">...</span></button>
           </div>
       </div>
-      <script>
-        function activateButton() {
-          var button = document.getElementsByClassName("button")[0];
-          var scriptStatus = document.getElementsByClassName("script-status")[0];
-          button.style.backgroundColor = "yellow";
-          scriptStatus.innerHTML = "startet";
-          button.disabled = true;
-          fetch("/activate", {
-            method: "POST"
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === 'already running'){
-              scriptStatus.innerHTML = "läuft bereits";
-            } else if (data.status === 'success') {
-              scriptStatus.innerHTML = "läuft ...";
-              button.style.backgroundColor = "AliceBlue";
-            } else if (data.status === 'failed')  {
-              scriptStatus.innerHTML = "fehlgeschlagen";
-              button.style.backgroundColor = "red";
-            } else if (data.status === 'not running')  {
-              scriptStatus.innerHTML = "aktivieren";
-            }
-          })
-        }
-      </script>
-      <script>
-        function checkStatus() {
-          var button = document.getElementsByClassName("button")[0];
-          var scriptStatus = document.getElementsByClassName("script-status")[0];
-          fetch("/status")
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === 'already running'){
-              scriptStatus.innerHTML = "läuft bereits";
-              button.style.backgroundColor = "yellow";
-            } else if (data.status === 'success') {
-              scriptStatus.innerHTML = "läuft ...";
-              button.style.backgroundColor = "AliceBlue";
-            } else if (data.status === 'failed')  {
-              scriptStatus.innerHTML = "fehlgeschlagen";
-              button.style.backgroundColor = "red";
-            } else if (data.status === 'not running')  {
-              scriptStatus.innerHTML = "aktivieren";
-            }
-          })
-        }
-        window.onload = checkStatus;
-      </script>
       <div style="width: 40%; margin: 0 auto; margin-top: 50px">
         <hr />
       </div>

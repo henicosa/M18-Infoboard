@@ -9,8 +9,8 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8000
 
 ENV FLASK_APP app.py
 
-ENTRYPOINT ["python", "-m", "flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT ["python", "-m", "gunicorn", "-b 0.0.0.0:8000", "app:app"]

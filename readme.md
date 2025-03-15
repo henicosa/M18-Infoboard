@@ -4,14 +4,15 @@ This is the open source repository of the M18's digital information board. Curre
 ## Install for Hosting (Not Development)
 1. Clone the repository 
 2. Alter the `application.json` to your needs
-3. Run the `install_linux.sh` script on any Linux device.
+3. Run the `start.sh` script on any Linux device.
 
-The `install_linux.sh` script will install a docker image and run a docker container on your device with the default port 5500.
+The `start.sh` script will install a docker image and run a docker container on your device with the default port 5343.
 
-## Usage
+The `stop.sh` script stop the currently running docker container.
+
 
 ## Development
-You don't need to run the docker container for development purpose. Instead just install the python requirements listed in the `requirements.txt` with `pip3 install -r requirements.txt`. Then you can either run `python app.py` or `flask run` in the project root directory to start the web application on local port 5000.
+You don't need to run the docker container for development purpose. Instead just install the python requirements listed in the `requirements.txt` with `pip3 install -r requirements.txt`. Then you can either run `python app.py` or `python -m flask run` in the project root directory to start the web application on local port 5000.
 
 ### Python Dependencies
 If you import new packages during development make sure to add them to the `requirements.txt`. The name that you used to install the package with pip is sufficient, although it is recommended, you do not need to add the specific version. Alternatively you can use pipreqs in the root directory with `pipreqs . --force` that will update `requirements.txt` based on your source code.
@@ -26,4 +27,4 @@ Please log important events in your code. This project makes use of the python l
 The logged events will also get printed on the console.
 
 ### Crawler
-Add Crawler scripts in the folder `app/crawler/` and integrate them in `app/crawler.py`.
+Add Crawler scripts in the folder `crawler/` and integrate them in `feed.py`.

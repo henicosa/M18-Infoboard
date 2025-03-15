@@ -1,2 +1,4 @@
 #!/bin/bash
-docker run -p 5500:5000 --name infoboard infoboard
+echo "Starting the application..."
+docker-compose up -d
+echo "Application started. Check logs with: docker-compose logs -f"
