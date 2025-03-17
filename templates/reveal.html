@@ -141,11 +141,15 @@
             {% for article in feed %}
 
             {% if article['type'] == 'StuKo Pinnwand' %}
-            <section data-autoslide="20000" data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+            <section data-autoslide="20000" data-background-gradient="linear-gradient(to bottom, #f1f1f1, #f4e06b)">
                 <div class="screen">
                   
                     <div class="flex-item-left">
+                      {% if article['image'] %}
                         <img class="article-image" src="{{ article['image'] }}">
+                      {% else %}
+                        <img class="article-image" src="https://m18.uni-weimar.de/files/2023/11/M18-ICON-300x300.png">
+                      {% endif %}
                     </div>
                     <div class="flex-item-right">
                         <div class="article-author">
