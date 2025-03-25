@@ -5,3 +5,4 @@ schedule
 feedparser
 gunicorn
 bs4
+requests
