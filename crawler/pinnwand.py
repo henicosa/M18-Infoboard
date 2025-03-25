@@ -1,8 +1,26 @@
 import feedparser
 from pprint import pprint
 import time
+import requests
 
 rss_feed_url = "https://www.uni-weimar.de/de/universitaet/aktuell/pinnwaende/rss/bereich/stuko/"
+
+from bs4 import BeautifulSoup
+
+def get_news_image_link(baselink):
+    html = requests.get(baselink).text
+    soup = BeautifulSoup(html, 'html.parser')
+    news_wrap = soup.find(class_='news-img-wrap')
+    if news_wrap:
+        link = news_wrap.find('a', class_='magnificpopup')
+        if link and 'href' in link.attrs:
+            if link['href'].startswith('http'):
+                return link['href']
+            else:
+                domain = baselink.split('/')[2]
+                return 'https://' + domain + link['href']
+    return None
+
 
 def get_feed_entries():
     print("Fetching RSS Feed from " + rss_feed_url)
@@ -41,10 +59,15 @@ def get_feed_entries():
             "image" : None
         }
 
+        """
+        # Only returns low resolution images
         for link in rss_entry["links"]:
             if "image" in link["type"]:
                 entry["image"] = link["href"]
-                break
+                break"
+        """
+
+        entry["image"] = get_news_image_link(entry["link"])
        
         entries.append(entry)
 

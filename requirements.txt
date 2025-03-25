@@ -4,3 +4,4 @@ icalendar
 schedule
 feedparser
 gunicorn
+bs4
