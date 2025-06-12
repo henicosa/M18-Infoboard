@@ -96,7 +96,6 @@
           flex: 1;
           padding: 2rem;
           display: flex;
-          flex-direction: column;
           overflow: hidden;
           background-color: rgba(255, 255, 255, 0.85);
         }
@@ -106,6 +105,17 @@
           height: 100%;
           object-fit: contain;
           display: block;
+        }
+
+        .article-info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .article-author, .article-title, .article-text {
+          margin-right: 1rem;
         }
 
         .article-author {
@@ -135,6 +145,8 @@
 
         .article-text {
           overflow: hidden;
+          -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+          mask-image: linear-gradient(180deg, #000 60%, transparent);
         }
 
         .more-info {
@@ -160,22 +172,23 @@
                       {% endif %}
                     </div>
                     <div class="flex-item-right">
-                        <div class="article-author">
-                            {{ article['author'] }}
-                        </div>
-                        <div class="article-title">
-                            <strong>{{ article["title"] }}</strong>
-                        </div>
-                        <div class="article-content">
+                        <div class="article-info">
+                            <div class="article-author">
+                                {{ article['author'] }}
+                            </div>
+                            <div class="article-title">
+                                <strong>{{ article["title"] }}</strong>
+                            </div>
                             <div class="article-text">
                                 <div class="qrcode-container">
-                                    <div class="qrcode">
-                                        <a href="{{ article['link'] }}"></a>
-                                    </div>
-                                </div>
+                                  <div class="qrcode">
+                                          <a href="{{ article['link'] }}"></a>
+                                      </div>
+                                  </div>
                                 {{ article['content']|safe }}
                             </div>
                         </div>
+                       
                     </div>
                 </div>
             </section>
