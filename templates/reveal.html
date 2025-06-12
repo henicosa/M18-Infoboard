@@ -123,10 +123,18 @@
           font-family: "Vollkorn";
         }
 
+        .article-content {
+          position: relative;
+        }
+
+        .qrcode-container {
+          float: right;
+          margin-left: 1rem;
+          margin-bottom: 1rem;
+        }
+
         .article-text {
-          font-size: 1.5rem;
-          line-height: 1.6;
-          color: var(--text-color);
+          overflow: hidden;
         }
 
         .more-info {
@@ -158,11 +166,15 @@
                         <div class="article-title">
                             <strong>{{ article["title"] }}</strong>
                         </div>
-                        <div class="article-text">
-                            {{ article['content']|safe }}
-                        </div>
-                        <div class="more-info">
-                            <div id="qrcode"></div>
+                        <div class="article-content">
+                            <div class="article-text">
+                                <div class="qrcode-container">
+                                    <div class="qrcode">
+                                        <a href="{{ article['link'] }}"></a>
+                                    </div>
+                                </div>
+                                {{ article['content']|safe }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,19 +201,21 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to initialize QR code, auto-scroll, and blurred background for each slide
   function initializeSlide(slide) {
 
-    console.log("hi")
+    
     // QR Code Generation
-    const qrContainer = slide.querySelector(".qrcode");
-    if (qrContainer) {
+    const qrContainers = slide.querySelectorAll(".qrcode");
+    qrContainers.forEach(qrContainer => {
+      const link = qrContainer.querySelector("a").href;
+      console.log("link", link)
       new QRCode(qrContainer, {
-        text: qrContainer.dataset.link, // Assuming link is stored in data attribute
-        width: 120,
-        height: 120,
+        text: link, // Use the link from the anchor tag
+        width: 200,
+        height: 200,
         colorDark: "#4f46e5",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
       });
-    }
+    });
 
     // Auto-scroll function
     const scrollContent = slide.querySelector(".scrollContent");
