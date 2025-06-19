@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="icon">
+    <title>Application</title>
+    <link rel="stylesheet" href="https://ludattel.de/css/styling.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
+    <style>
+        .calendar-events {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .event {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            border: 1px solid #000000;
+        }
+
+        .event.maschinenraum {
+            background-color: #b6469d30;
+        }
+
+        .event.sitzungssaal {
+            background-color: #fddc0030;
+        }
+
+        .event-time {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calendar-events" id="calendarEvents">
+        <h1>Heute in der M18</h1>
+        <div id="eventsList">
+            <div class="event loading">
+                <div class="event-title" style="background:#eee;height:1.2em;width:60%;margin-bottom:0.5em;border-radius:4px;"></div>
+                <div class="event-time" style="background:#eee;height:1em;width:40%;border-radius:4px;"></div>
+            </div>
+            <div class="event loading">
+                <div class="event-title" style="background:#eee;height:1.2em;width:50%;margin-bottom:0.5em;border-radius:4px;"></div>
+                <div class="event-time" style="background:#eee;height:1em;width:30%;border-radius:4px;"></div>
+            </div>
+            <div class="event loading">
+                <div class="event-title" style="background:#eee;height:1.2em;width:55%;margin-bottom:0.5em;border-radius:4px;"></div>
+                <div class="event-time" style="background:#eee;height:1em;width:35%;border-radius:4px;"></div>
+            </div>
+            <div class="event loading">
+                <div class="event-title" style="background:#eee;height:1.2em;width:65%;margin-bottom:0.5em;border-radius:4px;"></div>
+                <div class="event-time" style="background:#eee;height:1em;width:45%;border-radius:4px;"></div>
+            </div>
+            <div class="event loading">
+                <div class="event-title" style="background:#eee;height:1.2em;width:58%;margin-bottom:0.5em;border-radius:4px;"></div>
+                <div class="event-time" style="background:#eee;height:1em;width:38%;border-radius:4px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="calendar.js"></script>
+
+    <script>
+        function showLoadingSkeletons() {
+            const eventsList = document.getElementById('eventsList');
+            eventsList.innerHTML = `
+                <div class="event loading">
+                    <div class="event-title" style="background:#eee;height:1.2em;width:60%;margin-bottom:0.5em;border-radius:4px;"></div>
+                    <div class="event-time" style="background:#eee;height:1em;width:40%;border-radius:4px;"></div>
+                </div>
+                <div class="event loading">
+                    <div class="event-title" style="background:#eee;height:1.2em;width:50%;margin-bottom:0.5em;border-radius:4px;"></div>
+                    <div class="event-time" style="background:#eee;height:1em;width:30%;border-radius:4px;"></div>
+                </div>
+                <div class="event loading">
+                    <div class="event-title" style="background:#eee;height:1.2em;width:55%;margin-bottom:0.5em;border-radius:4px;"></div>
+                    <div class="event-time" style="background:#eee;height:1em;width:35%;border-radius:4px;"></div>
+                </div>
+                <div class="event loading">
+                    <div class="event-title" style="background:#eee;height:1.2em;width:65%;margin-bottom:0.5em;border-radius:4px;"></div>
+                    <div class="event-time" style="background:#eee;height:1em;width:45%;border-radius:4px;"></div>
+                </div>
+                <div class="event loading">
+                    <div class="event-title" style="background:#eee;height:1.2em;width:58%;margin-bottom:0.5em;border-radius:4px;"></div>
+                    <div class="event-time" style="background:#eee;height:1em;width:38%;border-radius:4px;"></div>
+                </div>
+            `;
+        }
+
+        function displayEvents(events) {
+            const eventsList = document.getElementById('eventsList');
+            eventsList.innerHTML = '';
+
+            if (events.length === 0) {
+                eventsList.innerHTML = '<p>No events scheduled for today.</p>';
+                return;
+            }
+
+            // Sort events by start time (should already be sorted, but just in case)
+            events.sort((a, b) => a.startDate.toJSDate() - b.startDate.toJSDate());
+
+            events.forEach(event => {
+                const eventElement = document.createElement('div');
+                eventElement.className = 'event ' + event.calendar_name;
+
+                const startTime = event.startDate.toJSDate().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
+                const endTime = event.endDate.toJSDate().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
+                eventElement.innerHTML = `
+            <div class="event-title">${event.summary}</div>
+            <div class="event-time">${startTime} - ${endTime}</div>
+            <div class="event-calendar">${event.calendar_name}</div>
+        `;
+                eventsList.appendChild(eventElement);
+            });
+        }
+
+        async function updateCalendar() {
+            showLoadingSkeletons();
+            // Fetch the list of calendars from calendars.json
+            let calendars = [];
+            try {
+                const response = await fetch('calendars.json');
+                calendars = await response.json();
+            } catch (error) {
+                console.error('Error fetching calendars.json:', error);
+                displayEvents([]);
+                return;
+            }
+
+            // Fetch all calendars in parallel
+            const allEvents = [];
+            await Promise.all(calendars.map(async (calendar) => {
+                const icalData = await fetchCalendar(calendar['name']);
+                if (icalData) {
+                    const jcalData = ICAL.parse(icalData);
+                    const comp = new ICAL.Component(jcalData);
+                    const events = comp.getAllSubcomponents('vevent').map(vevent => new ICAL.Event(vevent));
+                    const todayEvents = getTodayEvents(events, calendar.name, calendar.calendar_url);
+                    allEvents.push(...todayEvents);
+                }
+            }));
+
+            // Sort all events by start time
+            allEvents.sort((a, b) => a.startDate.toJSDate() - b.startDate.toJSDate());
+            displayEvents(allEvents);
+        }
+
+        // Initial load
+        updateCalendar();
+
+        // Update every hour
+        setInterval(updateCalendar, 3600000);
+    </script>
+</body>
+
+</html>

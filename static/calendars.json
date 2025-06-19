@@ -1,0 +1,12 @@
+[
+  {
+    "name": "maschinenraum",
+    "calendar_url": "https://cloud.bau-ha.us/remote.php/dav/public-calendars/aQZoW4z6d8o8g7M4?export",
+    "color": "#b6469d"
+  },
+  {
+    "name": "sitzungssaal",
+    "calendar_url": "https://cloud.bau-ha.us/remote.php/dav/public-calendars/K6BFDYfwAbicFGRY?export",
+    "color": "#fddc00"
+  }
+]
