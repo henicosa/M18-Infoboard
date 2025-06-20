@@ -1,6 +1,7 @@
 from flask import Flask, Response, render_template, jsonify, request
 from flask_basicauth import BasicAuth
 from icalendar import Calendar, Event
+from flask import send_from_directory
 
 import schedule
 import time
@@ -13,8 +14,11 @@ import requests
 def read_json(path):
     with open(path) as f:
         return json.load(f)
+    
+# Get the absolute path to the static directory
+STATIC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), 'static'))
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=STATIC_DIR, static_url_path='/')
 
 secrets = read_json("secrets/secrets.json")
 settings = read_json("application.json")
@@ -25,6 +29,8 @@ app.config['BASIC_AUTH_PASSWORD'] = secrets['password']
 basic_auth = BasicAuth(app)
 
 last_refresh = None
+
+
 
 '''
 -----------------------------------------------------

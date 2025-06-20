@@ -18,11 +18,13 @@
           --text-color: #2c3e5e;
           --accent-color: #8b5cf6;
         }
-
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
+        
+        @keyframes zoom-in {
+          from {
+            transform: scale(0.5);
+          }
+          to {
+            transform: scale(1);
         }
 
         body {
@@ -158,6 +160,10 @@
 <body>
     <div class="reveal">
         <div class="slides background-blur">
+            <section data-autoslide="20000" data-background-gradient="linear-gradient(to bottom, #f1f1f1, #f4e06b)" data-background-iframe="m18calendar.html">
+                
+            </section>
+
             {% for article in feed %}
 
             {% if article['type'] == 'StuKo Pinnwand' %}

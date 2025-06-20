@@ -33,7 +33,7 @@ def get_feed_entries():
         rss_feed.entries = rss_feed.entries[:10]
 
     for rss_entry in rss_feed.entries:
-        title = "".join(rss_entry["title"].split(": ")[1:])
+        title = ": ".join(rss_entry["title"].split(": ")[1:])
         author = rss_entry["title"].split(": ")[0]
         entry = {
             # This is the type of the feed, e.g pinnwannd, instagram etc.

@@ -6,15 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="icon">
     <title>Application</title>
-    <link rel="stylesheet" href="https://ludattel.de/css/styling.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
     <style>
+
+        @media (min-width: 1024px) {
+            :root {
+                font-size: 2.2em;
+            }
+            body {
+                padding: 2em;
+            }
+        }
+
         .calendar-events {
             padding: 20px;
             font-family: Arial, sans-serif;
         }
 
-        .event {
+        .event.completed {
+            display: none;
+            filter: grayscale(50%);
+            opacity: 0.2;
+        }
+
+        @keyframes slide-in-left {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }  
+        }
+
+        @keyframes slide-in-right {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }  
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .event-calendar {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .event-calendar-small::before {
+            content: "↪️";
+            margin-right: 0.5em;
+            font-size: 0.9em;
+        }
+
+        .event.active {
+            animation:  heartbeat 2s infinite;
+        }
+
+        .event.completed {
+            background-color: #fddc0030;
+        }
+
+        .event.loading {
+            animation: slide-in-left 0.3s ease-out;
+        }
+
+        .event {            
             margin: 10px 0;
             padding: 10px;
             background-color: #f5f5f5;
@@ -34,12 +102,33 @@
             color: #666;
             font-size: 0.9em;
         }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 1em;
+        }
+
+        .calendar-events {
+            width: 70%;
+        }
+
+        .english {
+            font-style: italic;
+        }
+
+        .event-flex { display: flex; align-items: center; gap: 1.5em; }
+        .event-time-large { font-size: 1.7em; min-width: 4.5em; text-align: right; font-family: monospace;}
+        .event-details { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+        .event-title-large { font-size: 1.3em; font-weight: bold; }
+        .event-calendar-small { font-size: 0.8em; color: #666; margin-top: 0.2em; }
     </style>
 </head>
 
 <body>
+    <div class="container">
     <div class="calendar-events" id="calendarEvents">
-        <h1>Heute in der M18</h1>
+        
         <div id="eventsList">
             <div class="event loading">
                 <div class="event-title" style="background:#eee;height:1.2em;width:60%;margin-bottom:0.5em;border-radius:4px;"></div>
@@ -62,6 +151,11 @@
                 <div class="event-time" style="background:#eee;height:1em;width:38%;border-radius:4px;"></div>
             </div>
         </div>
+    </div>
+    <div class="title-container">
+    <h1>Heute in der M18</h1>
+    <h1 class="english">Today in the M18</h1>
+</div>
     </div>
 
     <script src="calendar.js"></script>
@@ -105,16 +199,30 @@
             // Sort events by start time (should already be sorted, but just in case)
             events.sort((a, b) => a.startDate.toJSDate() - b.startDate.toJSDate());
 
+            const now = new Date();
+
             events.forEach(event => {
                 const eventElement = document.createElement('div');
-                eventElement.className = 'event ' + event.calendar_name;
+                let eventClass = 'event ' + event.calendar_name;
+                const start = event.startDate.toJSDate();
+                const end = event.endDate.toJSDate();
+                if (now >= start && now < end) {
+                    eventClass += ' active';
+                } else if (now >= end) {
+                    eventClass += ' completed';
+                }
+                eventElement.className = eventClass;
 
-                const startTime = event.startDate.toJSDate().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
-                const endTime = event.endDate.toJSDate().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
+                const startTime = start.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
+                const endTime = end.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
                 eventElement.innerHTML = `
-            <div class="event-title">${event.summary}</div>
-            <div class="event-time">${startTime} - ${endTime}</div>
-            <div class="event-calendar">${event.calendar_name}</div>
+            <div class="event-flex">
+                <div class="event-time-large">${startTime} - ${endTime}</div>
+                <div class="event-details">
+                    <div class="event-title-large">${event.summary}</div>
+                    <div class="event-calendar-small">${event.calendar_name}</div>
+                </div>
+            </div>
         `;
                 eventsList.appendChild(eventElement);
             });
