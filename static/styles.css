@@ -4,12 +4,18 @@
     }
     body {
         padding: 2em;
+	font-family: Roboto, sans-serif;
     }
+}
+
+body {
+    font-family: Roboto;
+    padding: 2em;
 }
 
 .calendar-events {
     padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family: Roboto, sans-serif;
 }
 
 .event.completed {
