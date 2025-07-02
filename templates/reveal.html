@@ -1,318 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="1500">
     <title>Infoboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/theme/simple.min.css">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,900;1,900&display=swap');
-
-        :root {
-          --background-color: #f5f7fa;
-          --cross-color: #ffffff;
-          --article-background: #ffffff;
-          --button-color: #4f46e5;
-          --text-color: #2c3e5e;
-          --accent-color: #8b5cf6;
-        }
-        
-
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        body {
-          font-family: Verdana, sans-serif;
-          background-color: var(--background-color);
-          color: var(--text-color);
-        }
-
-        .reveal .slide {
-          display: flex !important;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .reveal img {
-          max-width: 100%;
-          max-height: 100%;
-          margin: 0em;
-          padding: 0.5em;
-        }
-
-        .screen {
-          display: flex;
-          flex-direction: column;
-          height: 100vh;
-          width: 100vw;
-          padding: 2em;
-          
-        }
-
-        @media (max-width: 800px) {
-          .screen {
-            padding: 0.4em;
-          }
-
-        }
-
-        @media (aspect-ratio >= 1/1) {
-          .screen {
-            flex-direction: row;
-          }
-          .slides {
-            width: auto;
-            height: auto;
-          }
-          :root {
-            font-size: 1vw;
-          }
-        }
-
-        @media (aspect-ratio < 1/1) {
-          .screen {
-            flex-direction: column;
-          }
-          .slides {
-            width: auto;
-            height: auto;
-          }
-          :root {
-            font-size: 1vh;
-          }
-        }
-
-        .flex-item-left {
-          flex: 1;
-          background-color: var(--accent-color);
-          overflow: hidden;
-        }
-
-        .flex-item-right {
-          flex: 1;
-          padding: 2rem;
-          display: flex;
-          overflow: hidden;
-          background-color: rgba(255, 255, 255, 0.85);
-        }
-
-        .article-image {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          display: block;
-        }
-
-        .article-info {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .article-author, .article-title, .article-text {
-          margin-right: 1rem;
-        }
-
-        .article-author {
-          font-size: 1.2rem;
-          color: var(--button-color);
-          margin-bottom: 1rem;
-          font-weight: 600;
-        }
-
-        .article-title {
-          font-size: 3rem;
-          font-weight: 700;
-          margin-bottom: 1rem;
-          color: var(--button-color);
-          font-family: "Vollkorn";
-        }
-
-        .article-content {
-          position: relative;
-        }
-
-        .qrcode-container {
-          float: right;
-          margin-left: 1rem;
-          margin-bottom: 1rem;
-        }
-
-        .article-text {
-          overflow: hidden;
-          -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
-          mask-image: linear-gradient(180deg, #000 60%, transparent);
-        }
-
-        .more-info {
-          margin-top: auto;
-          text-align: center;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="../static/reveal.css"/>
+  </head>
+  <body>
     <div class="reveal">
-        <div class="slides background-blur">
-            <section data-autoslide="20000" data-background-gradient="linear-gradient(to bottom, #f1f1f1, #f4e06b)" data-background-iframe="m18calendar.html">
-                
-            </section>
+      <div class="slides background-blur">
+        <section data-autoslide="20000"
+		 data-background-gradient="linear-gradient(to bottom, #f1f1f1, #f4e06b)"
+		 data-background-iframe="m18calendar.html">
+          
+        </section>
 
-            {% for article in feed %}
+        {% for article in feed %}
 
-            {% if article['type'] == 'StuKo Pinnwand' %}
-            <section data-autoslide="20000" data-background-gradient="linear-gradient(to bottom, #f1f1f1, #f4e06b)">
-                <div class="screen">
-                  
-                    <div class="flex-item-left">
-                      {% if article['image'] %}
-                        <img class="article-image" src="{{ article['image'] }}">
-                      {% else %}
-                        <img class="article-image" src="https://m18.uni-weimar.de/files/2023/11/M18-ICON-300x300.png">
-                      {% endif %}
-                    </div>
-                    <div class="flex-item-right">
-                        <div class="article-info">
-                            <div class="article-author">
-                                {{ article['author'] }}
-                            </div>
-                            <div class="article-title">
-                                <strong>{{ article["title"] }}</strong>
-                            </div>
-                            <div class="article-text">
-                                <div class="qrcode-container">
-                                  <div class="qrcode">
-                                          <a href="{{ article['link'] }}"></a>
-                                      </div>
-                                  </div>
-                                {{ article['content']|safe }}
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-
-            {% if article['type'] == 'picture' %}
-
-            <section data-autoslide="20000">
-
-              <img class="fullscreen-image" src="{{ article['image'] }}">
-
-            </section>
-            {% endif %}
-
+        {% if article['type'] == 'StuKo Pinnwand' %}
+        <section data-autoslide="20000" data-background-gradient="linear-gradient(to bottom, #f1f1f1, #f4e06b)">
+          <div class="screen">
             
-            {% endfor %}
-        </div>
+            <div class="flex-item-left">
+              {% if article['image'] %}
+              <img class="article-image" src="{{ article['image'] }}">
+              {% else %}
+              <img class="article-image" src="https://m18.uni-weimar.de/files/2023/11/M18-ICON-300x300.png">
+              {% endif %}
+            </div>
+            <div class="flex-item-right">
+              <div class="article-info">
+                <div class="article-author">
+                  {{ article['author'] }}
+                </div>
+                <div class="article-title">
+                  <strong>{{ article["title"] }}</strong>
+                </div>
+                <div class="article-text">
+                  <div class="qrcode-container">
+                    <div class="qrcode">
+                      <a href="{{ article['link'] }}"></a>
+                    </div>
+                  </div>
+                  {{ article['content']|safe }}
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+        {% endif %}
+
+        {% if article['type'] == 'picture' %}
+
+        <section data-autoslide="20000">
+
+          <img class="fullscreen-image" src="{{ article['image'] }}">
+
+        </section>
+        {% endif %}
+
+        
+        {% endfor %}
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Function to initialize QR code, auto-scroll, and blurred background for each slide
-  function initializeSlide(slide) {
+    <script>
+      document.addEventListener("DOMContentLoaded", () => { //
+	  Function to initialize QR code, auto-scroll, and blurred
+	  background for each slide function initializeSlide(slide) {
 
-    
-    // QR Code Generation
-    const qrContainers = slide.querySelectorAll(".qrcode");
-    qrContainers.forEach(qrContainer => {
-      const link = qrContainer.querySelector("a").href;
-      console.log("link", link)
-      new QRCode(qrContainer, {
-        text: link, // Use the link from the anchor tag
-        width: 200,
-        height: 200,
-        colorDark: "#4f46e5",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    });
+	      
+	      // QR Code Generation const qrContainers =
+	      slide.querySelectorAll(".qrcode");
+	      qrContainers.forEach(qrContainer => { const link =
+	      qrContainer.querySelector("a").href; console.log("link",
+	      link) new QRCode(qrContainer, { text: link, // Use the
+	      link from the anchor tag width: 200, height: 200,
+	      colorDark: "#4f46e5", colorLight: "#ffffff",
+	      correctLevel: QRCode.CorrectLevel.H }); });
 
-    // Auto-scroll function
-    const scrollContent = slide.querySelector(".scrollContent");
-    if (scrollContent) {
-      let scrollPosition = 0;
-      const scrollSpeed = 0.5;
-      const scrollInterval = 30;
-      const pauseAtBottom = 3000;
-      const pauseAtTop = 1000;
-      let isPaused = false;
-      let scrollDirection = 1;
+	      // Auto-scroll function const scrollContent =
+	      slide.querySelector(".scrollContent"); if
+	      (scrollContent) { let scrollPosition = 0; const
+	      scrollSpeed = 0.5; const scrollInterval = 30; const
+	      pauseAtBottom = 3000; const pauseAtTop = 1000; let
+	      isPaused = false; let scrollDirection = 1;
 
-      function autoScroll() {
-        if (isPaused) return;
-        scrollPosition += scrollSpeed * scrollDirection;
-        scrollContent.scrollTop = scrollPosition;
+		  function autoScroll() { if (isPaused) return;
+		      scrollPosition += scrollSpeed * scrollDirection;
+		      scrollContent.scrollTop = scrollPosition;
 
-        if (scrollPosition >= (scrollContent.scrollHeight - scrollContent.clientHeight) && scrollDirection === 1) {
-          isPaused = true;
-          setTimeout(() => {
-            scrollDirection = -1;
-            isPaused = false;
-          }, pauseAtBottom);
-        }
-        if (scrollPosition <= 0 && scrollDirection === -1) {
-          isPaused = true;
-          setTimeout(() => {
-            scrollDirection = 1;
-            isPaused = false;
-          }, pauseAtTop);
-        }
-      }
+		      if (scrollPosition >=
+			  (scrollContent.scrollHeight -
+			  scrollContent.clientHeight) &&
+			  scrollDirection === 1) { isPaused = true;
+			  setTimeout(() => { scrollDirection = -1;
+			  isPaused = false; }, pauseAtBottom); } if
+			  (scrollPosition <= 0 && scrollDirection ===
+			  -1) { isPaused = true; setTimeout(() => {
+			  scrollDirection = 1; isPaused = false; },
+			  pauseAtTop); } }
 
-      setInterval(autoScroll, scrollInterval);
-    }
+		  setInterval(autoScroll, scrollInterval); }
 
-    // Blurred Background Effect
-    const articleImage = slide.querySelector(".article-image");
-    const backgroundBlur = document.querySelector(".backgroundBlur");
+	      // Blurred Background Effect const articleImage =
+	      slide.querySelector(".article-image"); const
+	      backgroundBlur =
+	      document.querySelector(".backgroundBlur");
 
-    if (articleImage && backgroundBlur) {
-      backgroundBlur.style.backgroundImage = `url(${articleImage.src})`;
+	      if (articleImage && backgroundBlur) {
+		  backgroundBlur.style.backgroundImage =
+		  `url(${articleImage.src})`;
 
-      let blurAmount = 15;
-      let opacity = 0.3;
-      let increasing = false;
+		  let blurAmount = 15; let opacity = 0.3; let
+		  increasing = false;
 
-      setInterval(() => {
-        if (increasing) {
-          blurAmount += 0.1;
-          opacity += 0.005;
-          if (blurAmount >= 20) increasing = false;
-        } else {
-          blurAmount -= 0.1;
-          opacity -= 0.005;
-          if (blurAmount <= 15) increasing = true;
-        }
-        backgroundBlur.style.filter = `blur(${blurAmount}px)`;
-        backgroundBlur.style.opacity = opacity.toString();
-      }, 100);
-    }
-  }
+		  setInterval(() => { if (increasing) { blurAmount +=
+		      0.1; opacity += 0.005; if (blurAmount >= 20)
+		      increasing = false; } else { blurAmount -= 0.1;
+		      opacity -= 0.005; if (blurAmount <= 15)
+		      increasing = true; } backgroundBlur.style.filter
+		      = `blur(${blurAmount}px)`;
+		      backgroundBlur.style.opacity =
+		      opacity.toString(); }, 100); } }
 
-  // Apply the function to all slides
-  document.querySelectorAll(".screen").forEach(slide => initializeSlide(slide));
-});
-</script>
+	  // Apply the function to all slides
+	  document.querySelectorAll(".screen").forEach(slide =>
+	  initializeSlide(slide)); });
+    </script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.min.js"></script>
     <script>
-        Reveal.initialize({
-            autoSlide: 1000,
-            loop: true,
-            controls: false,
-            progress: false,
-            transition: 'slide',
-            disableLayout: true
-        });
+      Reveal.initialize({ autoSlide: 1000, loop: true, controls:
+          false, progress: false, transition: 'slide', disableLayout:
+          true });
     </script>
-</body>
+  </body>
 </html>

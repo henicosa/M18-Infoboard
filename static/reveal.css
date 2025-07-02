@@ -1,0 +1,127 @@
+@import
+url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,900;1,900&display=swap');
+
+:root {
+    --background-color: #f5f7fa;
+    --cross-color: #ffffff;
+    --article-background: #ffffff;
+    --button-color: #4f46e5;
+    --text-color: #2c3e5e;
+    --accent-color: #8b5cf6;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.reveal .slide {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0em;
+    padding: 0.5em;
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    padding: 2em;
+}
+
+@media (max-width: 800px) {
+    .screen { padding: 0.4em; }
+}
+
+@media (aspect-ratio >= 1/1) {
+    .screen { flex-direction: row; }
+    .slides { width: auto; height: auto; }
+    :root { font-size: 1vw; }
+}
+
+@media (aspect-ratio < 1/1) {
+    .screen { flex-direction: column; }
+    .slides { width: auto; height: auto; }
+    :root { font-size: 1vh; } }
+
+.flex-item-left {
+    flex: 1;
+    background-color: var(--accent-color);
+    overflow: hidden;
+}
+
+.flex-item-right {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.article-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.article-author, .article-title, .article-text {
+    margin-right: 1rem;
+}
+
+.article-author {
+    font-size: 1.2rem;
+    color: var(--button-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.article-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--button-color);
+    font-family: "Vollkorn"; }
+
+.article-content {
+    position: relative;
+}
+
+.qrcode-container {
+    float: right;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.article-text {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+    mask-image:linear-gradient(180deg, #000 60%, transparent);
+}
+
+.more-info {
+    margin-top: auto;
+    text-align: center;
+}
